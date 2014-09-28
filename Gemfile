@@ -38,3 +38,10 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Use bootstrap for stylesheets
+gem 'bootstrap-sass', '~> 3.2.0'
+
+# Use autoprefixer to prevent vendor conflicts
+gem 'autoprefixer-rails'
+
+
