@@ -1,3 +1,3 @@
-== Feeed Me
+== Feeed Me!
 
-Feeed Me is a monolithic RSS reader with an insatiable appetite for feeds.
+Feeed Me! is a monolithic RSS reader with an insatiable appetite for feeds.
