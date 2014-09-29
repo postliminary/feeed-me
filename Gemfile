@@ -41,7 +41,11 @@ gem 'spring',        group: :development
 # Use bootstrap for stylesheets
 gem 'bootstrap-sass', '~> 3.2.0'
 
-# Use autoprefixer to prevent vendor conflicts
+# Use autoprefixer to prevent vendor asset conflicts
 gem 'autoprefixer-rails'
+
+# Use feedbag to find feed urls
+gem 'feedbag'
+
 
 
