@@ -20,10 +20,10 @@ class FeedsController < ApplicationController
   # POST /feeds
   # POST /feeds.json
   def create
-    @feed = Feed.from_url(feed_params[:url])
+    @feed = Feed.create_from_url(feed_params[:url])
 
     respond_to do |format|
-      if @feed.save
+      if @feed.errors.blank?
         format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
         format.json { render :show, status: :created, location: @feed }
       else
