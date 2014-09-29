@@ -45,7 +45,10 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
 # Use feedbag to find feed urls
-gem 'feedbag'
+gem 'feedbag', :git => 'https://github.com/postliminary/feedbag.git'
+
+# Use feedjira to fetch and parse urls
+gem 'feedjira'
 
 
 

@@ -20,7 +20,7 @@ class FeedsController < ApplicationController
   # POST /feeds
   # POST /feeds.json
   def create
-    @feed = Feed.new(feed_params)
+    @feed = Feed.from_url(feed_params[:url])
 
     respond_to do |format|
       if @feed.save
