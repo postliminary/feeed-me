@@ -7,7 +7,8 @@ class Feed < ActiveRecord::Base
   validates :url, presence:true
 
   def fetch
-    feed = Feedjira::Feed.fetch_and_parse(self.url)
+    Feedjira::Feed.add_common_feed_element 'image', :as => :image
+    feed = Feedjira::Feed.fetch_and_parse self.url
     self.title = feed.title
   end
 

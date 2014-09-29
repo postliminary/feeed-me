@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140929060315) do
+ActiveRecord::Schema.define(version: 20140929123206) do
+
+  create_table "entries", force: true do |t|
+    t.integer  "feed_id"
+    t.string   "title"
+    t.string   "url"
+    t.string   "author"
+    t.string   "content"
+    t.string   "summary"
+    t.datetime "published"
+    t.datetime "updated"
+    t.string   "categories"
+    t.string   "entry_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entries", ["feed_id"], name: "index_entries_on_feed_id", using: :btree
 
   create_table "feeds", force: true do |t|
     t.string   "title"

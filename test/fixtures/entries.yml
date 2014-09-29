@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rails: MyString
+  g: MyString
+  scaffold: MyString
+  entry: MyString
+  feed_id: 1
+  title: MyString
+  url: MyString
+  author: MyString
+  content: MyString
+  summary: MyString
+  published: 2014-09-29 21:18:05
+  updated: 2014-09-29 21:18:05
+  categories: MyString
+  entry_id: MyString
+
+two:
+  rails: MyString
+  g: MyString
+  scaffold: MyString
+  entry: MyString
+  feed_id: 1
+  title: MyString
+  url: MyString
+  author: MyString
+  content: MyString
+  summary: MyString
+  published: 2014-09-29 21:18:05
+  updated: 2014-09-29 21:18:05
+  categories: MyString
+  entry_id: MyString
