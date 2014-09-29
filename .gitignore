@@ -15,5 +15,8 @@
 /log/*.log
 /tmp
 
+# Ignore public system directory
+/public/system
+
 # Ignore IDE files
 /.idea

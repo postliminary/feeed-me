@@ -1,15 +1,14 @@
+require 'uri'
+require 'feedbag'
+require 'feedjira'
+
 class Feed < ActiveRecord::Base
-  require 'uri'
-  require 'feedbag'
-  require 'feedjira'
+  has_many :entries, dependent: :destroy
 
   validates :title, presence: true
   validates :url, presence: true, uniqueness: true
 
-  has_many :entries, dependent: :destroy
-
   def fetch
-    Feedjira::Feed.add_common_feed_element 'image', :as => :image
     feed = Feedjira::Feed.fetch_and_parse self.url
 
     self.title = feed.title

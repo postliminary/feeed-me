@@ -50,5 +50,8 @@ gem 'feedbag', :git => 'https://github.com/postliminary/feedbag.git'
 # Use feedjira to fetch and parse urls
 gem 'feedjira'
 
+# Use paperclip to create thumbnails and store images
+gem 'paperclip', "~> 4.2"
+
 
 

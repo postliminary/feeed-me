@@ -21,6 +21,7 @@
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
+        <td><%= image_tag entry.image.url(:medium) %></td>
         <td><%= entry.feed_id %></td>
         <td><%= entry.title %></td>
         <td><%= entry.url %></td>
