@@ -6,3 +6,23 @@ $brand-danger:          #d9534f !default;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+* {
+  border-radius: 0 !important;
+}
+
+// Header
+.header {
+  background-color: $gray-darker;
+
+  h1.title {
+    text-align: center;
+    font-size: floor(($font-size-base * 5.0));
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+
