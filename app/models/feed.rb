@@ -1,40 +1,47 @@
-require 'uri'
-require 'feedbag'
-require 'feedjira'
-
 class Feed < ActiveRecord::Base
   has_many :entries, dependent: :destroy
 
   validates :title, presence: true
-  validates :url, presence: true, uniqueness: true
+  validate :valid_feed
 
-  def fetch
-    feed = Feedjira::Feed.fetch_and_parse self.url
+  def valid_feed
+    feed_url = FeedUtil.find_feed_url(self.url)
 
-    self.title = feed.title
+    if feed_url
+      self.url = feed_url
+    else
+      errors.add(:url, 'is invalid or does not refer to a feed')
+    end
 
-    Entry.bulk_create(feed.entries, self)
-
-    self.save
+    if Feed.exists?(:url => feed_url)
+      errors.add(:url, 'already added')
+    end
   end
 
   def self.create_from_url(any_url)
     feed = Feed.new
     feed.title = any_url
-    feed.url = Feedbag.find(any_url).first
+    feed.url = any_url
 
     # Try to save
-    if feed.url != nil && feed.save
+    if feed.save
       # First fetch
       feed.fetch
-    else
-      feed.errors.add(:url, 'is invalid or does not refer to a feed')
     end
 
     return feed
   end
 
-  def self.fetch_all
+  def fetch
+    f = FeedUtil.parse(self.url)
 
+    self.title = f.title
+    self.site_url = f.url
+
+    Entry.add_to_feed(f.entries, self)
+  end
+
+  def self.fetch_all
+    Feed.all.each { |feed| feed.fetch }
   end
 end

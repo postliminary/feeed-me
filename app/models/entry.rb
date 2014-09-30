@@ -1,6 +1,3 @@
-require "open-uri"
-require "open_uri_redirections"
-
 class Entry < ActiveRecord::Base
   belongs_to :feed
   has_attached_file :image, :styles => {:medium => '300x300>', :thumb => '100x100>'}, :default_url => '/images/:style/missing.png'
@@ -11,10 +8,10 @@ class Entry < ActiveRecord::Base
 
   scope :recent, -> { order('published desc') }
 
-  def self.bulk_create(entries, feed)
+  def self.add_to_feed(entries, feed)
     entries.each do |entry|
       # Skip if entry already exists
-      break if exists? :entry_id => entry.entry_id
+      break if exists?(:entry_id => entry.entry_id, :feed_id => feed.id)
 
       new_entry = create(
           :entry_id => entry.entry_id,
@@ -29,19 +26,27 @@ class Entry < ActiveRecord::Base
           :categories => entry.categories,
       )
 
-      # Try and add image
-      if entry.image.present?
-        new_entry.image = open(entry.image, :allow_redirections => :safe)
-      else
-        content = Nokogiri::HTML(entry.content)
-        img = content.css('img')
+      image_url = entry.image ? entry.image : new_entry.find_image_url()
 
-        if img.first && img.first['src']
-          new_entry.image = open(img.first['src'], :allow_redirections => :safe)
-        end
+      if image_url
+        new_entry.image = open(image_url, :allow_redirections => :safe)
+        new_entry.save
       end
-
-      new_entry.save
     end
+  end
+
+  def find_image_url()
+    # Try and find an image to use
+    if self.summary
+      summary_img = HtmlUtil.find_first_img_src(self.summary)
+      return summary_img if summary_img
+    end
+
+    if self.content
+      content_img = HtmlUtil.find_first_img_src(self.content)
+      return content_img if content_img
+    end
+
+    return nil
   end
 end
