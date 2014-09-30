@@ -8,6 +8,8 @@ class Entry < ActiveRecord::Base
 
   scope :recent, -> { order('published desc') }
 
+  self.per_page = 20
+
   def self.add_to_feed(entries, feed)
     entries.each do |entry|
       # Skip if entry already exists
@@ -21,6 +23,7 @@ class Entry < ActiveRecord::Base
           :author => entry.author,
           :content => entry.content,
           :summary => entry.summary,
+          :summary_text => HtmlUtil.html_to_text(entry.summary ? entry.summary : entry.content),
           :published => entry.published,
           :updated => entry.updated,
           :categories => entry.categories,
@@ -35,7 +38,7 @@ class Entry < ActiveRecord::Base
     end
   end
 
-  def find_image_url()
+  def find_image_url
     # Try and find an image to use
     if self.summary
       summary_img = HtmlUtil.find_first_img_src(self.summary)

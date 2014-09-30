@@ -1,54 +1,26 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-sm-3">
+    <div>
+      <h1><%= @entry.title %></h1>
+      <p>
+        <span>Published <%= time_ago_in_words(@entry.published) %> ago</span>
+        <span>on <%= link_to @entry.feed.title, feed_path(@entry.feed) %></span>
+      </p>
+    </div>
+    <ul class="nav nav-stacked">
+      <li>
+        <%= link_to @entry.url do %>
+            <span class="glyphicon glyphicon-eye-open"></span>
+            <span>Visit website</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-6">
+    <div class="entry-content">
+      <%= @entry.content.html_safe %>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Feed:</strong>
-  <%= @entry.feed_id %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @entry.title %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @entry.url %>
-</p>
-
-<p>
-  <strong>Author:</strong>
-  <%= @entry.author %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @entry.content %>
-</p>
-
-<p>
-  <strong>Summary:</strong>
-  <%= @entry.summary %>
-</p>
-
-<p>
-  <strong>Published:</strong>
-  <%= @entry.published %>
-</p>
-
-<p>
-  <strong>Updated:</strong>
-  <%= @entry.updated %>
-</p>
-
-<p>
-  <strong>Categories:</strong>
-  <%= @entry.categories %>
-</p>
-
-<p>
-  <strong>Entry:</strong>
-  <%= @entry.entry_id %>
-</p>
-
-<%= link_to 'Edit', edit_entry_path(@entry) %> |
-<%= link_to 'Back', entries_path %>

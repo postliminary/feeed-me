@@ -11,4 +11,8 @@ class HtmlUtil
 
     return nil
   end
+
+  def self.html_to_text(html)
+    Nokogiri::HTML(html).text
+  end
 end

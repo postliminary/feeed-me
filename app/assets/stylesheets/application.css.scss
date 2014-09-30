@@ -17,12 +17,29 @@ $brand-danger:          #d9534f !default;
 
   h1.title {
     text-align: center;
-    font-size: floor(($font-size-base * 5.0));
+    font-size: floor(($font-size-base * 7.0));
+    text-transform: uppercase;
+    margin: 0;
 
     a:hover {
       text-decoration: none;
     }
   }
 }
+
+// Content
+.table {
+ margin: $font-size-base 0;
+}
+
+.main {
+  .nav {
+    margin: $font-size-base 0;
+  }
+}
+
+@import "entries";
+@import "feeds";
+@import "home";
 
 

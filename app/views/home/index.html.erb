@@ -1,2 +1,12 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="row">
+  <div class="col-sm-6 col-sm-push-3">
+    <%= render 'feeds/form' %>
+    <%= render 'entries/list' %>
+  </div>
+  <div class="col-sm-3 col-sm-pull-6">
+    <%= render 'feeds/list' %>
+  </div>
+  <div class="col-sm-3">
+  </div>
+</div>
+

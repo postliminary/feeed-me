@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ul class="entries list-group">
+      <% @entries.each do |entry| %>
+          <li class="entry list-group-item">
+            <div class="row">
+              <div class="col-xs-3">
+                <%= image_tag entry.image.url(:medium), class: 'entry-thumb' %>
+              </div>
+              <div class="col-xs-9">
+                <h4><%= link_to entry.title, entry_path(entry.id) %></h4>
+
+                <p>
+                  <%= truncate(entry.summary_text, length: 115) %>
+                </p>
+
+                <p>
+                  <em class="small">
+                      <span>Posted <%= time_ago_in_words(entry.published) %> ago</span>
+                      <span>on <%= link_to entry.feed.title, feed_path(entry.feed) %></span>
+                  </em>
+                </p>
+              </div>
+            </div>
+          </li>
+      <% end %>
+    </ul>
+    <%= will_paginate @entries, renderer: BootstrapPagination::Rails %>
+  </div>
+</div>
+

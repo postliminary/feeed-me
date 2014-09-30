@@ -53,5 +53,11 @@ gem 'feedjira'
 # Use paperclip to create thumbnails and store images
 gem 'paperclip', "~> 4.2"
 
+# Use will-paginate to add pagination
+gem 'will_paginate', '~> 3.0.5'
+gem 'will_paginate-bootstrap'
+
+
+
 
 

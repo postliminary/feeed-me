@@ -1,14 +1,36 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-sm-3">
+    <ul class="nav nav-stacked">
+      <li>
+        <%= link_to root_path do %>
+            <span class="glyphicon glyphicon-hand-left"></span>
+            <span>Back to all feeds</span>
+        <% end %>
+      </li>
+    </ul>
+    <div>
+      <h2><%= @feed.title %></h2>
 
-<p>
-  <strong>Title:</strong>
-  <%= @feed.title %>
-</p>
+      <p class="small"><%= @feed.url %></p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @feed.url %>
-</p>
+      <p>
+        Updated <%= time_ago_in_words(@feed.updated_at) %> ago
+      </p>
+    </div>
+    <ul class="nav nav-stacked">
+      <li>
+        <%= link_to @feed, method: :delete, data: {confirm: 'Remove this feed?'} do %>
+            <span class="glyphicon glyphicon-thumbs-down"></span>
+            <span>Remove this feed</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-6">
+    <%= render 'entries/list' %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_feed_path(@feed) %> |
-<%= link_to 'Back', feeds_path %>
+
+

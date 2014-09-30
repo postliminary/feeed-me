@@ -1,5 +1,9 @@
 class HomeController < ApplicationController
   def index
-    @entries = Entry.recent
+    @feed = Feed.new
+    @feeds = Feed.all
+    @entries = Entry.recent.paginate(:page => params[:page])
   end
+
+  private
 end

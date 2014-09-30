@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   # GET /entries
   # GET /entries.json
   def index
-    @entries = Entry.recent
+    @entries = Entry.recent.paginate(:page => params[:page])
   end
 
   # GET /entries/1
