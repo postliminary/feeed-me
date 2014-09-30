@@ -6,10 +6,17 @@ class HomeController < ApplicationController
   end
 
   def refresh_feeds
-    Feed.fetch_all
-    respond_to do |format|
-      format.html { redirect_to root_url, notice: 'Refreshing feeds.' }
-      format.json { head :no_content }
+    if Delayed::Job.count > 0
+      respond_to do |format|
+        format.html { redirect_to root_url, notice: 'Feeds already being refreshed.' }
+        format.json { head :no_content }
+      end
+    else
+      Feed.fetch_all
+      respond_to do |format|
+        format.html { redirect_to root_url, notice: 'Refreshing feeds.' }
+        format.json { head :no_content }
+      end
     end
   end
 end

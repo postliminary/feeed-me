@@ -9,7 +9,7 @@
       </li>
     </ul>
     <div>
-      <h2><%= @feed.title %></h2>
+      <h2 class="feed-title"><%= @feed.title %></h2>
 
       <p class="small"><%= @feed.url %></p>
 
@@ -17,11 +17,18 @@
         Updated <%= time_ago_in_words(@feed.updated_at) %> ago
       </p>
     </div>
+    <hr />
     <ul class="nav nav-stacked">
       <li>
         <%= link_to @feed, method: :delete, data: {confirm: 'Remove this feed?'} do %>
             <span class="glyphicon glyphicon-thumbs-down"></span>
             <span>Remove this feed</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to refresh_feed_path(@feed.id) do %>
+            <span class="glyphicon glyphicon-refresh"></span>
+            <span>Refresh this feed</span>
         <% end %>
       </li>
     </ul>

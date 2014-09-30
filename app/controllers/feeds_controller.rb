@@ -1,4 +1,6 @@
 class FeedsController < ApplicationController
+  before_action :set_feed, only: [:show, :destroy, :refresh]
+
   # GET /feeds
   # GET /feeds.json
   def index
@@ -9,10 +11,13 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
-    @feed = Feed.find(params[:id])
     @entries = Entry.where(feed_id: params[:id])
       .recent
       .paginate(:page => params[:page])
+  end
+
+  def new
+    @feed = Feed.new
   end
 
   # POST /feeds
@@ -34,7 +39,6 @@ class FeedsController < ApplicationController
   # DELETE /feeds/1
   # DELETE /feeds/1.json
   def destroy
-    @feed = Feed.find(params[:id])
     @feed.destroy
     respond_to do |format|
       format.html { redirect_to root_url, notice: 'Feed was successfully destroyed.' }
@@ -42,7 +46,27 @@ class FeedsController < ApplicationController
     end
   end
 
+  def refresh
+    if Delayed::Job.count > 0
+      respond_to do |format|
+        format.html { redirect_to feed_url(@feed.id), notice: 'Feeds already being refreshed.' }
+        format.json { head :no_content }
+      end
+    else
+      @feed.fetch
+      respond_to do |format|
+        format.html { redirect_to feed_url(@feed.id), notice: 'Refreshing feeds.' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
   private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_feed
+      @feed = Feed.find(params[:id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def feed_params
       params.require(:feed).permit(:url)

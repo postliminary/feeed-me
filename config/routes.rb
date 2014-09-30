@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :entries
 
+  get 'feeds/:id/refresh', to: 'feeds#refresh', as: 'refresh_feed'
+
   resources :feeds
 
   root 'home#index'
