@@ -57,6 +57,10 @@ gem 'paperclip', "~> 4.2"
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
 
+# Use delayed_job for background jobs
+gem 'delayed_job_active_record'
+
+
 
 
 

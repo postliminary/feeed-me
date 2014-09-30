@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930102429) do
+ActiveRecord::Schema.define(version: 20140930173541) do
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "entries", force: true do |t|
     t.integer  "feed_id"
@@ -35,6 +51,7 @@ ActiveRecord::Schema.define(version: 20140930102429) do
 
   add_index "entries", ["feed_id"], name: "index_entries_on_feed_id", using: :btree
   add_index "entries", ["published"], name: "index_entries_on_published", using: :btree
+  add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
 
   create_table "feeds", force: true do |t|
     t.string   "title"
@@ -43,5 +60,7 @@ ActiveRecord::Schema.define(version: 20140930102429) do
     t.datetime "updated_at"
     t.string   "site_url"
   end
+
+  add_index "feeds", ["updated_at"], name: "index_feeds_on_updated_at", using: :btree
 
 end

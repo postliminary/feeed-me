@@ -20,7 +20,7 @@ class Feed < ActiveRecord::Base
 
   def self.create_from_url(any_url)
     feed = Feed.new
-    feed.title = any_url
+    feed.title = UrlUtil.normalize(any_url)
     feed.url = any_url
 
     # Try to save
@@ -35,7 +35,7 @@ class Feed < ActiveRecord::Base
   def fetch
     f = FeedUtil.parse(self.url)
 
-    self.title = f.title
+    self.title = UrlUtil.normalize(f.title)
     self.site_url = f.url
 
     Entry.add_to_feed(f.entries, self)
@@ -44,4 +44,6 @@ class Feed < ActiveRecord::Base
   def self.fetch_all
     Feed.all.each { |feed| feed.fetch }
   end
+
+  handle_asynchronously :fetch
 end

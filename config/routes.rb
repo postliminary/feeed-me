@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'home/index'
+  get 'home/refresh_feeds'
 
   resources :entries
 
