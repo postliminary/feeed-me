@@ -4,6 +4,8 @@ class Feed < ActiveRecord::Base
   validates :title, presence: true
   validate :valid_feed
 
+  scope :alphabetical, -> { order('title') }
+
   def valid_feed
     feed_url = FeedUtil.find_feed_url(self.url)
 

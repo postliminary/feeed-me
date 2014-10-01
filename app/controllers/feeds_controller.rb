@@ -5,7 +5,7 @@ class FeedsController < ApplicationController
   # GET /feeds.json
   def index
     @feed = Feed.new
-    @feeds = Feed.all
+    @feeds = Feed.alphabetical.all
   end
 
   # GET /feeds/1

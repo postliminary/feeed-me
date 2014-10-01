@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930173541) do
+ActiveRecord::Schema.define(version: 20141001021201) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20140930173541) do
     t.string   "site_url"
   end
 
+  add_index "feeds", ["title"], name: "index_feeds_on_title", using: :btree
   add_index "feeds", ["updated_at"], name: "index_feeds_on_updated_at", using: :btree
 
 end

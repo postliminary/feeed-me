@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     @feed = Feed.new
-    @feeds = Feed.all
+    @feeds = Feed.alphabetical.all
     @entries = Entry.includes(:feed)
       .recent
       .paginate(:page => params[:page])
