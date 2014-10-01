@@ -50,7 +50,7 @@ class FeedsController < ApplicationController
   def refresh
     if Delayed::Job.where("handler LIKE '%id: #{@feed.id}%'").count > 0
       respond_to do |format|
-        format.html { redirect_to feed_url(@feed.id), notice: 'Feed already being updated.' }
+        format.html { redirect_to feed_url(@feed.id), notice: 'Feed is updating.' }
         format.json { head :no_content }
       end
     else
