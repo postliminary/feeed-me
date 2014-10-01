@@ -11,25 +11,26 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-6 col-xs-offset-3">
-        <h1 class="title"><%= link_to 'Feeed Me!', root_path %></h1>
+        <div class="banner">
+          <h1 class="title"><%= link_to 'Feeed Me!', root_path %></h1>
+          <% if notice %>
+              <div id="notice" class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <%= notice %>
+                </button>
+              </div>
+              <script>
+                  notice.close();
+              </script>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <div class="main">
   <div class="container">
-    <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-        <% if notice %>
-            <div class="alert alert-warning alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert">
-                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <%= notice %>
-              </button>
-            </div>
-        <% end %>
-      </div>
-    </div>
     <div class="content row">
       <div class="col-xs-12">
         <%= yield %>
