@@ -25,6 +25,7 @@ body {
     text-transform: uppercase;
     margin: 0;
     white-space: nowrap;
+    //text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
 
     a:hover {
       text-decoration: none;
@@ -34,10 +35,18 @@ body {
   .banner {
     position: relative;
 
+    img {
+      position: absolute;
+      height: floor(($font-size-base * 5.0));
+      bottom: 0;
+      right: 25%;
+    }
+
     .alert {
       position: absolute;
       top: 25%;
       width: 100%;
+      z-index: 9999;
     }
   }
 }
