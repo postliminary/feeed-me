@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json { render :json => {
-          :partial => render_to_string(partial: 'entries/list', formats: :html, locales: {:entries => @entries}),
+          :partial_html => render_to_string(partial: 'entries/list', formats: :html, locales: {:entries => @entries}),
           :last_updated => (Time.now.utc - Entry.maximum(:updated_at)).floor * 1000
         }
       }
