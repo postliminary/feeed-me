@@ -11,6 +11,10 @@ $brand-danger:          #d9534f !default;
   border-radius: 0 !important;
 }
 
+body {
+  background-color: $gray-darker;
+}
+
 // Header
 .header {
   background-color: $gray-darker;
@@ -28,18 +32,25 @@ $brand-danger:          #d9534f !default;
 }
 
 // Content
-.table {
- margin: $font-size-base 0;
+.main {
+  background-color: #fff;
+  padding: ($font-size-base * 2) 0;
 }
 
-.main {
-  .nav {
-    margin: $font-size-base 0;
-  }
+.table {
+  margin: $font-size-base 0;
+}
 
-  .alert {
-    margin: $font-size-base 0;
+.content {
+  .top-header {
+    margin-top: 0;
   }
+}
+
+// Footer
+.footer {
+  background-color: $gray-darker;
+  color: white;
 }
 
 @import "entries";

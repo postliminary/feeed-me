@@ -11,7 +11,8 @@ class FeedsController < ApplicationController
   # GET /feeds/1
   # GET /feeds/1.json
   def show
-    @entries = Entry.where(feed_id: params[:id])
+    @entries = Entry.includes(:feed)
+      .where(feed_id: params[:id])
       .recent
       .paginate(:page => params[:page])
   end
@@ -27,7 +28,7 @@ class FeedsController < ApplicationController
 
     respond_to do |format|
       if @feed.errors.blank?
-        format.html { redirect_to root_url, notice: 'Feed was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Mmmm more feeds.' }
         format.json { render :show, status: :created, location: @feed }
       else
         format.html { render :new }
@@ -41,21 +42,21 @@ class FeedsController < ApplicationController
   def destroy
     @feed.destroy
     respond_to do |format|
-      format.html { redirect_to root_url, notice: 'Feed was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Feed removed.' }
       format.json { head :no_content }
     end
   end
 
   def refresh
-    if Delayed::Job.count > 0
+    if Delayed::Job.where("handler LIKE '%id: #{@feed.id}%'").count > 0
       respond_to do |format|
-        format.html { redirect_to feed_url(@feed.id), notice: 'Feeds already being refreshed.' }
+        format.html { redirect_to feed_url(@feed.id), notice: 'Feed already being updated.' }
         format.json { head :no_content }
       end
     else
       @feed.fetch
       respond_to do |format|
-        format.html { redirect_to feed_url(@feed.id), notice: 'Refreshing feeds.' }
+        format.html { redirect_to feed_url(@feed.id), notice: 'Updating feed.' }
         format.json { head :no_content }
       end
     end

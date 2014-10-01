@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/refresh_feeds'
 
-  resources :entries
-
   get 'feeds/:id/refresh', to: 'feeds#refresh', as: 'refresh_feed'
 
-  resources :feeds
+  resources :feeds do
+    resources :entries
+  end
 
   root 'home#index'
 

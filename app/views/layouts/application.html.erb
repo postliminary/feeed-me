@@ -7,34 +7,43 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="header container-fluid">
-  <div class="row">
-    <div class="col-xs-12">
-      <h1 class="title"><%= link_to 'Feeed Me!', root_path %></h1>
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <h1 class="title"><%= link_to 'Feeed Me!', root_path %></h1>
+      </div>
     </div>
   </div>
 </div>
-<div class="main container">
-  <div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
-      <% if notice %>
-        <div class="alert alert-warning alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <%= notice %>
-          </button>
-        </div>
-      <% end %>
+<div class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <% if notice %>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <%= notice %>
+              </button>
+            </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="main row">
-    <div class="col-xs-12">
+    <div class="content row">
+      <div class="col-xs-12">
         <%= yield %>
+      </div>
     </div>
   </div>
 </div>
-<div class="footer container-fluid">
-  <div class="row">
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <h4><span class="glyphicon glyphicon-warning-sign"></span> postliminary</h4>
+      </div>
+    </div>
   </div>
 </div>
 </body>
