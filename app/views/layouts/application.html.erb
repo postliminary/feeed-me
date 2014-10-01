@@ -7,11 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <!--Turbolinks clashing with polling setup-->
-<body data-no-turbolink>
+<body data-no-turbolink="true">
 <div class="header">
   <div class="container">
     <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
+      <div class="col-sm-6 col-sm-offset-3">
         <div class="banner">
           <h1 class="title"><%= link_to 'Feeed Me!', root_path %></h1>
           <% if notice %>
@@ -42,11 +42,20 @@
 <div class="footer">
   <div class="container">
     <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
+      <div class="col-sm-6 col-sm-offset-3">
         <h4><span class="glyphicon glyphicon-warning-sign"></span> postliminary</h4>
       </div>
     </div>
   </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $(".sticky").sticky({
+            topSpacing: 20,
+            getWidthFrom: ".sidebar",
+            responsiveWidth: true
+        });
+    });
+</script>
 </body>
 </html>

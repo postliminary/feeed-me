@@ -24,6 +24,7 @@ body {
     font-size: floor(($font-size-base * 7.0));
     text-transform: uppercase;
     margin: 0;
+    white-space: nowrap;
 
     a:hover {
       text-decoration: none;

@@ -5,13 +5,16 @@
 }
 
 .entry-info {
+  h1 {
+    display: inline-block;
+  }
 }
 
 .entry-content {
 }
 
 img.entry-thumb,
-.entry-content img{
+.entry-content img[width]{
   width: 100%;
   height: auto;
 }

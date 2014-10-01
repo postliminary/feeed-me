@@ -5,7 +5,7 @@
       <%= render 'entries/list' %>
     </div>
   </div>
-  <div class="col-sm-3 col-sm-pull-6">
+  <div class="col-sm-3 col-sm-pull-6 sidebar">
     <ul class="nav nav-stacked">
       <% @feeds.each do |feed| %>
           <li>
@@ -16,7 +16,7 @@
       <% end %>
     </ul>
     <hr />
-    <ul class="nav nav-stacked">
+    <ul class="nav nav-stacked sticky">
       <li>
         <%= link_to feeds_path do %>
             <span class="glyphicon glyphicon-wrench"></span>
