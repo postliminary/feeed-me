@@ -62,6 +62,7 @@ gem 'delayed_job_active_record'
 
 # Heroku integration
 gem 'rails_12factor'
+gem 'pg'
 
 
 
