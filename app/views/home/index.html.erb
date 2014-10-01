@@ -14,6 +14,9 @@
             <% end %>
           </li>
       <% end %>
+      <% if @feeds.count == 0 %>
+          <li>Nothing to feed on</li>
+      <% end %>
     </ul>
     <hr />
     <ul class="nav nav-stacked sticky">
