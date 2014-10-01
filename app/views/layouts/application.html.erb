@@ -6,7 +6,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<!--Turbolinks clashing with polling setup-->
+<body data-no-turbolink>
 <div class="header">
   <div class="container">
     <div class="row">

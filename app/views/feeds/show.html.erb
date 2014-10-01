@@ -39,6 +39,11 @@
     </div>
   </div>
 </div>
+<% if (params[:page] == nil || params[:page] == "1")  %>
+    <script>
+        feeds.update(<%= @feed.id %>, 2000);
+    </script>
+<% end %>
 
 
 
