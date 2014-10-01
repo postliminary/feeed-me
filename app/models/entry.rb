@@ -16,7 +16,7 @@ class Entry < ActiveRecord::Base
       break if exists?(:entry_id => entry.entry_id, :feed_id => feed.id)
 
       new_entry = create(
-          :entry_id => entry.entry_id,
+          :entry_id => Digest::SHA1.hexdigest(entry.entry_id),
           :feed_id => feed.id,
           :title => entry.title,
           :url => entry.url,
@@ -41,12 +41,12 @@ class Entry < ActiveRecord::Base
   def find_image_url
     # Try and find an image to use
     if self.summary
-      summary_img = HtmlUtil.find_first_img_src(self.summary)
+      summary_img = HtmlUtil.find_first_min_img_src(self.summary, 100)
       return summary_img if summary_img
     end
 
     if self.content
-      content_img = HtmlUtil.find_first_img_src(self.content)
+      content_img = HtmlUtil.find_first_min_img_src(self.content, 100)
       return content_img if content_img
     end
 

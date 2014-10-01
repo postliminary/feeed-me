@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001062708) do
+ActiveRecord::Schema.define(version: 20141001064755) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20141001062708) do
   create_table "entries", force: true do |t|
     t.integer  "feed_id"
     t.string   "title"
-    t.string   "url"
+    t.text     "url"
     t.string   "author"
     t.text     "content"
     t.text     "summary"
