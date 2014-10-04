@@ -4,7 +4,7 @@ var home = {
 
     update: function (interval) {
         setTimeout(function () {
-            $.getJSON("/home/index", function (data) {
+            $.getJSON("/api/home/index", function (data) {
                 $("#recent-entries").html(data.partial_html)
 
                 // Slowly extend polling to match update freq

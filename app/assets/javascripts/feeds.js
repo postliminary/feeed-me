@@ -4,7 +4,7 @@ var feeds = {
 
     update: function (id, interval) {
         setTimeout(function () {
-            $.getJSON("/feeds/" + id, function (data) {
+            $.getJSON("/api/feeds/" + id, function (data) {
                 $("#recent-entries").html(data.partial_html)
 
                 // Slowly extend polling to match update freq

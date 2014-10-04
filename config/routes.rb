@@ -8,6 +8,10 @@ Rails.application.routes.draw do
     resources :entries
   end
 
+  # Ajax routes
+  get 'api/home/index', to: 'home#index'
+  get 'api/feeds/:id', to: 'feeds#show'
+
   root 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
