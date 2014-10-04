@@ -4,30 +4,29 @@ class HomeController < ApplicationController
     @feeds = Feed.alphabetical.all
     @entries = Entry.includes(:feed)
       .recent
-      .paginate(:page => params[:page])
+      .paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html { render :index }
       format.json { render :json => {
           :partial_html => render_to_string(partial: 'entries/list', formats: :html, locales: {:entries => @entries}),
-          :last_updated => (Time.now.utc - Entry.maximum(:updated_at)).floor * 1000
+          :last_entry_at => Entry.last_entry_at
         }
       }
     end
   end
 
   def refresh_feeds
-    if Delayed::Job.count > 0
-      respond_to do |format|
-        format.html { redirect_to root_url, notice: 'Feeds are updating.' }
-        format.json { head :no_content }
-      end
-    else
-      Feed.fetch_all
-      respond_to do |format|
-        format.html { redirect_to root_url, notice: 'Updating feeds.' }
-        format.json { head :no_content }
-      end
+    notice = 'Feeds are updating.'
+
+    if Delayed::Job.count == 0
+      Feed.all.each { |feed| feed.update_from_remote }
+      notice = 'Updating feeds.'
     end
+
+    respond_to do |format|
+      format.html { redirect_to root_url, notice: notice }
+      format.json { head :no_content }
+      end
   end
 end

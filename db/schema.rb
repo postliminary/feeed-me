@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001064755) do
+ActiveRecord::Schema.define(version: 20141004044633) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20141001064755) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.text     "summary_text"
+    t.text     "image_url"
   end
 
   add_index "entries", ["entry_id"], name: "index_entries_on_entry_id", using: :btree

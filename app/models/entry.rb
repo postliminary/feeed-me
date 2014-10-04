@@ -8,48 +8,31 @@ class Entry < ActiveRecord::Base
 
   scope :recent, -> { order('published desc') }
 
-  self.per_page = 20
-
-  def self.add_to_feed(entries, feed)
-    entries.each do |entry|
-      # Skip if entry already exists
-      break if exists?(:entry_id => entry.entry_id, :feed_id => feed.id)
-
-      new_entry = create(
-          :entry_id => Digest::SHA1.hexdigest(entry.entry_id),
-          :feed_id => feed.id,
-          :title => entry.title,
-          :url => entry.url,
-          :author => entry.author,
-          :content => entry.content,
-          :summary => entry.summary,
-          :summary_text => HtmlUtil.html_to_text(entry.summary ? entry.summary : entry.content),
-          :published => entry.published,
-          :updated => entry.updated,
-          :categories => entry.categories,
-      )
-
-      image_url = entry.image ? entry.image : new_entry.find_image_url()
-
-      if image_url
-        new_entry.image = open(image_url, :allow_redirections => :safe)
-        new_entry.save
-      end
-    end
+  def self.last_entry_at
+    (Time.now.utc - Entry.maximum(:updated_at)).floor * 1000
   end
 
   def find_image_url
     # Try and find an image to use
     if self.summary
-      summary_img = HtmlUtil.find_first_min_img_src(self.summary, 100)
+      summary_img = HtmlHelper.find_first_img_src(self.summary, 100)
       return summary_img if summary_img
     end
 
     if self.content
-      content_img = HtmlUtil.find_first_min_img_src(self.content, 100)
+      content_img = HtmlHelper.find_first_img_src(self.content, 100)
       return content_img if content_img
     end
 
     return nil
   end
+
+  def add_image_from_remote
+    self.image_url = self.image_url || find_image_url
+
+    self.image = open(image_url, :allow_redirections => :safe)
+    self.save
+  end
+
+  handle_asynchronously :add_image_from_remote
 end

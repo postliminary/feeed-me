@@ -2,12 +2,13 @@ class Feed < ActiveRecord::Base
   has_many :entries, dependent: :destroy
 
   validates :title, presence: true
-  validate :valid_feed
+  validates :url, presence: true, uniqueness: true
+  validate :valid_feed_url, on: :create
 
   scope :alphabetical, -> { order('title') }
 
-  def valid_feed
-    feed_url = FeedUtil.find_feed_url(self.url)
+  def valid_feed_url
+    feed_url = FeedHelper.find_feed_url(self.url)
 
     if feed_url
       self.url = feed_url
@@ -20,32 +21,41 @@ class Feed < ActiveRecord::Base
     end
   end
 
-  def self.create_from_url(any_url)
-    feed = Feed.new
-    feed.title = UrlUtil.normalize(any_url)
-    feed.url = any_url
+  def update_from_remote()
+    raw = FeedHelper.fetch(self.url)
 
-    # Try to save
-    if feed.save
-      # First fetch
-      feed.fetch
+    self.title = raw.title
+
+    self.save
+
+    raw.entries.each do |entry|
+      # Skip if entry already exists
+      new_entry_id = Digest::SHA1.hexdigest(self.id.to_s +
+                                                entry.entry_id.to_s + entry.url.to_s)
+
+      next if Entry.exists?(:entry_id => new_entry_id)
+
+      new_entry = Entry.create(
+          :entry_id => new_entry_id,
+          :feed_id => self.id,
+          :title => entry.title,
+          :url => entry.url,
+          :author => entry.author,
+          :content => HtmlHelper.sanitize(entry.content),
+          :summary => HtmlHelper.sanitize(entry.summary),
+          :summary_text => HtmlHelper.html_to_text(entry.summary || entry.content),
+          :published => entry.published,
+          :updated => entry.updated,
+          # Need to figure out what to do with categories array
+          # Serialize or separate entity?
+          #:categories => entry.categories,
+          :image_url => entry.image
+      )
+
+      new_entry.add_image_from_remote
+
     end
-
-    return feed
   end
 
-  def fetch
-    f = FeedUtil.parse(self.url)
-
-    self.title = UrlUtil.normalize(f.title)
-    self.site_url = f.url
-
-    Entry.add_to_feed(f.entries, self)
-  end
-
-  def self.fetch_all
-    Feed.all.each { |feed| feed.fetch }
-  end
-
-  handle_asynchronously :fetch
+  handle_asynchronously :update_from_remote
 end

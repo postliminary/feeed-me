@@ -60,11 +60,13 @@ gem 'will_paginate-bootstrap'
 # Use delayed_job for background jobs
 gem 'delayed_job_active_record'
 
+# Use sanitize for html
+gem 'sanitize'
+
 # Heroku integration
 gem 'rails_12factor'
 gem 'pg'
 gem 'aws-sdk'
-
 
 
 
