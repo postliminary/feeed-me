@@ -6,8 +6,12 @@
             <%= image_tag entry.image.url(:medium), class: 'entry-thumb' %>
           </div>
           <div class="col-xs-9">
-            <h4 class="top-header"><%= link_to entry.title, feed_entry_path(entry.feed, entry) %></h4>
-
+            <h4 class="top-header">
+              <% if entry.summary_text == '' %>
+                <%= link_to entry.title, entry.url, target: '_blank' %>
+              <% else %>
+                <%= link_to entry.title, feed_entry_path(entry.feed, entry) %></h4>
+              <% end %>
             <p>
               <%= truncate(entry.summary_text, length: 115) %>
             </p>

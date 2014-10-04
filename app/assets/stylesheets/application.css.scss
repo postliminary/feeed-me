@@ -76,6 +76,10 @@ body {
 .footer {
   background-color: $gray-darker;
   color: white;
+
+  h4 {
+    text-align: center;
+  }
 }
 
 @import "entries";

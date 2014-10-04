@@ -18,3 +18,15 @@ img.entry-thumb,
   width: 100%;
   height: auto;
 }
+
+.entry-content img[width='1'],
+.entry-content img[height='1'] {
+  display: none;
+}
+
+@media (max-width: $screen-md-min) {
+  .sticky {
+    position: static !important;
+    top: 0 !important;
+  }
+}
