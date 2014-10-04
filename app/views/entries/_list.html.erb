@@ -22,9 +22,9 @@
         </div>
       </li>
   <% end %>
-  <% if @entries.count == 0 %>
-    <li>No entries to eat</li>
-  <% end %>
 </ul>
+<% if @entries.count == 0 %>
+    <p>No entries to eat</p>
+<% end %>
 <%= will_paginate @entries, renderer: BootstrapPagination::Rails %>
 

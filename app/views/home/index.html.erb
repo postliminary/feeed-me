@@ -10,7 +10,7 @@
       <% @feeds.each do |feed| %>
           <li>
             <%= link_to feed_path(feed.id) do %>
-                <span><%= truncate(feed.title, length: 30) %></span>
+                <span><%= feed.title %></span>
             <% end %>
           </li>
       <% end %>

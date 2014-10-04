@@ -1,4 +1,7 @@
 var home = {
+    max_interval: 30000,
+    default_interval: 2000,
+
     update: function (interval) {
         setTimeout(function () {
             $.getJSON("/home/index", function (data) {
@@ -6,8 +9,13 @@ var home = {
 
                 // Slowly extend polling to match update freq
                 // 2 - 30s
-                var new_interval = Math.min(Math.max(data.last_updated, 2000), 10000)
-                home.update(new_interval);
+                if (data.last_entry_at < home.max_interval) {
+                    home.update(home.default_interval);
+                }
+                else {
+                    var new_interval = Math.min(interval + home.default_interval, home.max_interval)
+                    home.update(new_interval);
+                }
             })
         }, interval);
     }
