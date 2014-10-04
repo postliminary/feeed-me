@@ -21,11 +21,14 @@ body {
 
   h1.title {
     text-align: center;
-    font-size: floor(($font-size-base * 7.0));
+    font-size: floor(($font-size-base * 11.0));
     text-transform: uppercase;
     margin: 0;
     white-space: nowrap;
     //text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+    font-family: 'impact', sans-serif;
+    letter-spacing: 5px;
+    margin-top: ($font-size-base * -2);
 
     a:hover {
       text-decoration: none;
@@ -37,9 +40,11 @@ body {
 
     img {
       position: absolute;
-      height: floor(($font-size-base * 5.0));
+      height: floor(($font-size-base * 9.0));
       bottom: 0;
       right: 25%;
+      left: 25%;
+      margin: 0 auto;
     }
 
     .alert {
