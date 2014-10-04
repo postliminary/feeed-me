@@ -6,15 +6,9 @@
     </div>
   </div>
   <div class="col-sm-4 col-sm-pull-8 sidebar">
-    <ul class="nav nav-stacked">
-      <% @feeds.each do |feed| %>
-          <li>
-            <%= link_to feed_path(feed.id) do %>
-                <span><%= feed.title %></span>
-            <% end %>
-          </li>
-      <% end %>
-    </ul>
+    <div id="feeds-list">
+      <%= render 'feeds/list' %>
+    </div>
     <hr />
     <ul class="nav nav-stacked sticky">
       <li>

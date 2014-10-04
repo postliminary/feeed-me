@@ -30,8 +30,10 @@ class Entry < ActiveRecord::Base
   def add_image_from_remote
     self.image_url = self.image_url || find_image_url
 
-    self.image = open(image_url, :allow_redirections => :safe)
-    self.save
+    if self.image_url
+      self.image = open(self.image_url, :allow_redirections => :safe)
+      self.save
+    end
   end
 
   handle_asynchronously :add_image_from_remote

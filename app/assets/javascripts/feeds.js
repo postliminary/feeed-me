@@ -5,11 +5,10 @@ var feeds = {
     update: function (id, interval) {
         setTimeout(function () {
             $.getJSON("/api/feeds/" + id, function (data) {
-                $("#recent-entries").html(data.partial_html)
-
                 // Slowly extend polling to match update freq
                 // 2 - 30s
                 if (data.last_entry_at < home.max_interval) {
+                    $("#recent-entries").html(data.partial_html)
                     feeds.update(id, feeds.default_interval);
                 }
                 else {

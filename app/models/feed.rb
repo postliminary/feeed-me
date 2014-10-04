@@ -31,7 +31,7 @@ class Feed < ActiveRecord::Base
   def update_from_remote
     raw = FeedHelper.fetch(self.url)
 
-    self.title = raw.title
+    self.title = UrlHelper.normalize(raw.title)
 
     self.save
 

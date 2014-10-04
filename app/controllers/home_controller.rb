@@ -9,7 +9,8 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json { render :json => {
-          :partial_html => render_to_string(partial: 'entries/list', formats: :html, locales: {:entries => @entries}),
+          :entries_partial_html => render_to_string(partial: 'entries/list', formats: :html, locales: {:entries => @entries}),
+          :feeds_partial_html => render_to_string(partial: 'feeds/list', formats: :html, locales: {:feeds => @feeds}),
           :last_entry_at => Entry.last_entry_at
         }
       }

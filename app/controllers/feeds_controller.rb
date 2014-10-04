@@ -35,7 +35,7 @@ class FeedsController < ApplicationController
   def create
     @feed = Feed.new(
         :url => feed_params[:url],
-        :title => feed_params[:url]
+        :title => UrlHelper.normalize(feed_params[:url])
     )
 
     if @feed.save
