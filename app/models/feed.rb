@@ -4,6 +4,7 @@ class Feed < ActiveRecord::Base
   validates :title, presence: true
   validates :url, presence: true, uniqueness: true
   validate :valid_feed_url, on: :create
+  validate :max_feeds, on: :create
 
   scope :alphabetical, -> { order('title') }
 
@@ -21,7 +22,13 @@ class Feed < ActiveRecord::Base
     end
   end
 
-  def update_from_remote()
+  def max_feeds
+    if Feed.count > 50
+      errors.add(:feed, 'exceeds number of allowed feeds')
+    end
+  end
+
+  def update_from_remote
     raw = FeedHelper.fetch(self.url)
 
     self.title = raw.title
