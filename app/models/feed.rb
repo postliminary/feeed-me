@@ -42,9 +42,8 @@ class Feed < ActiveRecord::Base
 
       next if Entry.exists?(:entry_id => new_entry_id)
 
-      new_entry = Entry.create(
+      new_entry = Entry.new(
           :entry_id => new_entry_id,
-          :feed_id => self.id,
           :title => entry.title,
           :url => entry.url,
           :author => entry.author,
@@ -58,6 +57,8 @@ class Feed < ActiveRecord::Base
           #:categories => entry.categories,
           :image_url => entry.image
       )
+
+      self.entries << new_entry
 
       new_entry.add_image_from_remote
 

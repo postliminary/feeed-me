@@ -3,6 +3,7 @@
       <li>
         <%= link_to feed_path(feed.id) do %>
             <span><%= feed.title %></span>
+            <span class="badge pull-right"><%= feed.entries.size %></span>
         <% end %>
       </li>
   <% end %>
