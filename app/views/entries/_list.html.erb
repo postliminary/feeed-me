@@ -30,5 +30,5 @@
 <% if @entries.count == 0 %>
     <p>No entries to eat</p>
 <% end %>
-<%= will_paginate @entries, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @entries, inner_window: 2, renderer: BootstrapPagination::Rails %>
 
