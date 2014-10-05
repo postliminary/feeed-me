@@ -65,8 +65,8 @@ class FeedsController < ApplicationController
   def refresh
     notice = 'Feeds are updating.'
 
-    if Delayed::Job.where("handler LIKE '%id: #{@feed.id}%'").count > 0
-      Feed.fetch_all
+    if Delayed::Job.where("handler LIKE '%id: #{@feed.id}%'").count == 0
+      @feed.update_from_remote
       notice = 'Updating feeds.'
     end
 
